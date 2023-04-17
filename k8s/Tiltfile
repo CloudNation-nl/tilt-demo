@@ -1,0 +1,15 @@
+# allow_k8s_contexts('docker-desktop')
+
+if k8s_namespace() == 'default':
+  fail("failing early to avoid deploying to 'default' namespace")
+
+k8s_yaml('mongo-config.yaml')
+k8s_yaml('mongo-secret.yaml')
+k8s_yaml('mongo.yaml')
+k8s_yaml('app.yaml')
+
+k8s_resource(
+    'webapp-deployment',
+    port_forwards='8080:3000',
+    labels='webapp'
+)
