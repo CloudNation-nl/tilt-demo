@@ -14,6 +14,7 @@ Prerequisites:
 ## Logs
 ## Hot reloading
 
+# Demo's
 ## Tilt & Kubernetes
 In the `k8s` folder you will find an easy demonstration on how to use Tilt combined with kubernetes apps. We will make two deployments: 
 - MongoDB deployment
