@@ -34,6 +34,12 @@ if k8s_namespace() == 'default':
 
 We can run and deploy this stack with just one command: `cd k8s && tilt up`. This will also provide us with a localhosted web-UI which gives us access to logs, service statusses and more. If we use the combination of `tilt up` and `tilt down` (just like you would be used to with `docker-compose`), the stack will be automatically removed and cleaned up if we stop tilt. The best for this would be `tilt up && tilt down`
 
+### Running the Tilt & Kubernetes demo
+```bash
+cd k8s
+tilt up && tilt down
+```
+
 ## Tilt & Helm
 TBD
 
