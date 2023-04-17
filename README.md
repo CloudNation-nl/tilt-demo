@@ -6,7 +6,7 @@ Prerequisites:
 - [x] [Helm](https://helm.sh/)
 - [x] [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [x] [Docker](https://docker.com/)
-- [x] Access to any kubernetes cluster, preferably a local minikube cluster
+- [x] [Minikube](https://minikube.sigs.k8s.io/docs/start/) in your local docker environment
 
 ## Tilt & Kubernetes
 TBD
