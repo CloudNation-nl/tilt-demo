@@ -1,0 +1,22 @@
+k8s_yaml('./k8s/backend.yaml')
+k8s_yaml('./k8s/frontend.yaml')
+
+docker_build('keebrev/backend-demo',
+            "./backend",
+             dockerfile='./backend/Dockerfile.dev',
+             live_update=[
+               sync('./backend/src', '/usr/src/app')
+             ])
+
+docker_build('keebrev/frontend-demo',
+            "./frontend",
+            dockerfile='./frontend/Dockerfile',
+            live_update=[
+               sync('./frontend/src', '/usr/share/nginx/html')
+             ],
+             build_args={
+                'NGINX_PORT': '0.0.0.0'
+             })
+
+k8s_resource('backend-deployment', port_forwards='3000:3000')
+k8s_resource('frontend-deployment', port_forwards='8080:80')

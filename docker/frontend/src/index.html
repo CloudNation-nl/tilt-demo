@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script lang="js">
+            async function fetchData() {
+                var res = await fetch("http://0.0.0.0:3000/")
+                var data = await res.json()
+                console.log(data)
+
+                var dataDiv = document.getElementById("data");
+                dataDiv.innerHTML = ""
+                for (const [key, value] of Object.entries(data)) {
+                    const div = document.createElement('div')
+                    const title = document.createElement("p");
+                    const entry = document.createElement("input");
+                    title.innerHTML = key
+                    entry.value = value
+                    entry.setAttribute('id', key)
+                    title.setAttribute('class', 'kv')
+                    div.setAttribute('class', 'data-entry')
+                    dataDiv.setAttribute('class', 'entry')
+                    div.appendChild(title)
+                    div.appendChild(entry)
+                    dataDiv.appendChild(div)
+                }
+            }
+
+            addEventListener("load", () => fetchData())
+        </script>
+        <style>
+            .entry {
+                display: block;
+            }
+
+            .kv {
+                display: inline-flex;
+                margin-bottom: 8px;
+                margin-top: 8px;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Hi, my dear.
+        </h1>
+        <div id="data">
+            ... loading
+        </div>
+    </body>
+</html>
