@@ -45,7 +45,10 @@ tilt up && tilt down
 TBD
 
 ## Tilt & Docker
-TBD
+For the Tilt & Docker part I have prepared a demo with the combination of Helm & Docker. As you can see in the `Tiltfile`, you're able to define docker-build steps within the Tiltfile. The build is automatically triggered as soon as Tilt finds a similar named image in one of your k8s definitions. 
+
+Unfortunately there's one big downside on the image buildsteps for Docker, namely the lack of defining the target build stage. To achieve the same functionality, we now need to split up buildstages into different Dockerfiles. 
+
 
 ## Tilt without containerized apps 
 TBD

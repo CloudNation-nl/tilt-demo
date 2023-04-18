@@ -22,6 +22,16 @@
                     div.appendChild(entry)
                     dataDiv.appendChild(div)
                 }
+
+                var submitButton = document.createElement('button')
+                submitButton.addEventListener('click', () => {
+                    putChanges(dataDiv)
+                })
+                dataDiv.appendChild(dataDiv);
+            }
+
+            async function putChanges(dataElement) {
+
             }
 
             addEventListener("load", () => fetchData())
