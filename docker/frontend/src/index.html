@@ -4,10 +4,16 @@
             async function fetchData() {
                 var res = await fetch("http://0.0.0.0:3000/")
                 var data = await res.json()
+                var resDiv = document.getElementById("res");
+                resDiv.innerHTML = "";
+                resDiv.innerHTML = "# API Response: <br/><br/>" + JSON.stringify(data, null, 4);
+
                 console.log(data)
 
                 var dataDiv = document.getElementById("data");
+                dataDiv.setAttribute('class', 'entry')
                 dataDiv.innerHTML = ""
+
                 for (const [key, value] of Object.entries(data)) {
                     const div = document.createElement('div')
                     const title = document.createElement("p");
@@ -17,26 +23,69 @@
                     entry.setAttribute('id', key)
                     title.setAttribute('class', 'kv')
                     div.setAttribute('class', 'data-entry')
-                    dataDiv.setAttribute('class', 'entry')
                     div.appendChild(title)
                     div.appendChild(entry)
                     dataDiv.appendChild(div)
+
+                    if(key === "name") {
+                        let title = document.getElementById('name');
+                        title.innerHTML = "voor " + value;
+                    }
+
+                    if(key === "url") {
+                        console.log('key === url')
+                        let img = document.createElement("img")
+                        img.setAttribute('class', 'img-class')
+                        img.src = value;
+                        div.append(img)
+                    }
                 }
 
                 var submitButton = document.createElement('button')
+                submitButton.innerHTML = "Update"
                 submitButton.addEventListener('click', () => {
                     putChanges(dataDiv)
                 })
-                dataDiv.appendChild(dataDiv);
+                dataDiv.appendChild(submitButton);
             }
 
             async function putChanges(dataElement) {
-
+                let updateObj = {}
+                const childs = dataElement.childNodes;
+                childs.forEach(element => {
+                    if(element.className === "data-entry") {
+                        let subchilds = element.childNodes;
+                        let input = undefined;
+                        subchilds.forEach(element => {
+                            if(element.tagName === "INPUT") {
+                                input = element;
+                            }
+                        })
+                        if(input) {
+                            let key = input.id;
+                            let value = input.value;
+                            updateObj[key] = value;
+                        }
+                    }
+                });
+                console.log('updating', updateObj)
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateObj)
+                };
+                fetch('http://0.0.0.0:3000/', requestOptions).then(() => {
+                    fetchData()
+                })
             }
 
             addEventListener("load", () => fetchData())
         </script>
         <style>
+            .img-class {
+                display: block;
+            }
+
             .entry {
                 display: block;
             }
@@ -47,12 +96,23 @@
                 margin-top: 8px;
                 margin-right: 10px;
             }
+
+            #res {
+                font-family: monospace;
+                color: white;
+                background-color: black;
+                padding: 16px;
+                margin-bottom: 8px;
+            }
         </style>
     </head>
     <body>
         <h1>
-            Hi, my dear.
+            Tilt Demo <span id="name"></span>
         </h1>
+        <div id="res">
+
+        </div>
         <div id="data">
             ... loading
         </div>

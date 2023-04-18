@@ -18,7 +18,7 @@ export class AppService {
     }
   }
 
-  async put(data: any): Promise<any> {
+  async post(data: any): Promise<any> {
     let fileContentsBefore = JSON.parse(await fs.readFile(this.filePath));
     
     try {
@@ -53,7 +53,7 @@ export class AppService {
   private async createFile() {
     const data = {
       name: "Bert",
-      url: "https://google.com/"
+      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpNCuO1NqgQn9pFmNkADJxAXRhdIM9BHLF4w&usqp=CAU"
     }
     await fs.appendFile(this.filePath, JSON.stringify(data))
   }
