@@ -1,5 +1,18 @@
-k8s_yaml('./k8s/backend.yaml')
-k8s_yaml('./k8s/frontend.yaml')
+k8s_yaml(
+  helm(
+        './app-deployment',
+        'backend',
+        'web',
+        values=['./app-deployment/values.yaml', './helm-values/backend-values.yaml']
+  ))
+
+k8s_yaml( 
+  helm(
+      './app-deployment',
+      'frontend',
+      'web',
+      values=['./app-deployment/values.yaml', './helm-values/frontend-values.yaml']
+  ))
 
 docker_build('keebrev/backend-demo',
             "./backend",

@@ -1,0 +1,15 @@
+nameOverride: "frontend"
+fullnameOverride: "frontend-deployment"
+
+image:
+  repository: keebrev/frontend-demo
+  pullPolicy: Never
+
+serviceAccount:
+  create: false
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+  nodePort: 30101

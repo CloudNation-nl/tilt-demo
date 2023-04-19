@@ -1,0 +1,14 @@
+nameOverride: "backend"
+fullnameOverride: "backend-deployment"
+
+image:
+  repository: keebrev/backend-demo
+  pullPolicy: Never
+
+serviceAccount:
+  create: false
+
+service:
+  type: NodePort
+  port: 3000
+  nodePort: 30100
