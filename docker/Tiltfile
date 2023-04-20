@@ -3,7 +3,7 @@ k8s_yaml(
         './app-deployment',
         'backend',
         'web',
-        values=['./app-deployment/values.yaml', './helm-values/backend-values.yaml']
+        values=['./app-deployment/values.yaml', './helm-values/backend-values.yaml'],
   ))
 
 k8s_yaml( 
@@ -12,7 +12,7 @@ k8s_yaml(
       'frontend',
       'web',
       values=['./app-deployment/values.yaml', './helm-values/frontend-values.yaml']
-  ))
+  )) 
 
 docker_build('keebrev/backend-demo',
             "./backend",
@@ -31,5 +31,5 @@ docker_build('keebrev/frontend-demo',
                 'NGINX_PORT': '0.0.0.0'
              })
 
-k8s_resource('backend-deployment', port_forwards='3000:3000')
-k8s_resource('frontend-deployment', port_forwards='8080:80')
+k8s_resource('backend-deployment', port_forwards='3000:3000', labels=['backend', 'k8s'])
+k8s_resource('frontend-deployment', port_forwards='8080:80', labels=['frontend', 'k8s'])

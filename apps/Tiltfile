@@ -24,4 +24,4 @@ docker_build('keebrev/frontend-demo',
                 'NGINX_PORT': '0.0.0.0'
              })
 
-k8s_resource('frontend-deployment', port_forwards='8080:80') 
+k8s_resource('frontend-deployment', port_forwards='8080:80')

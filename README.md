@@ -9,10 +9,11 @@ Prerequisites:
 - [x] [Minikube](https://minikube.sigs.k8s.io/docs/start/) in your local docker environment
 
 # Benefits of Tilt
-## Usability
-## Local development
-## Logs
-## Hot reloading
+- [x] Usability
+- [x] Local development
+- [x] Logs
+- [x] Hot reloading
+- [x] Starlark coding, conditional deployments and builds
 
 # Demo's
 ## Tilt & Kubernetes
