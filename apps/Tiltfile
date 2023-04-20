@@ -1,0 +1,27 @@
+local_resource(
+    'local-backend', 
+    cmd='cd ../docker/backend/ && npm i', 
+    deps=['../docker/backend/src', '../docker/backend/package.json'],
+    serve_cmd='cd ../docker/backend && npm run start:dev',
+    links='http://localhost:3000/')
+
+
+k8s_yaml( 
+  helm(
+      '../docker/app-deployment',
+      'frontend',
+      'web',
+      values=['../docker/app-deployment/values.yaml', '../docker/helm-values/frontend-values.yaml']
+  ))
+
+docker_build('keebrev/frontend-demo',
+            "../docker/frontend",
+            dockerfile='../docker/frontend/Dockerfile',
+            live_update=[
+               sync('../docker/frontend/src', '/usr/share/nginx/html')
+             ],
+             build_args={
+                'NGINX_PORT': '0.0.0.0'
+             })
+
+k8s_resource('frontend-deployment', port_forwards='8080:80') 
