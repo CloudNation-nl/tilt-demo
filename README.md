@@ -9,8 +9,7 @@ Prerequisites:
 - [x] [Minikube](https://minikube.sigs.k8s.io/docs/start/) in your local docker environment
 
 # Benefits of Tilt
-- [x] Usability
-- [x] Local development
+- [x] Quick local development
 - [x] Logs
 - [x] Hot reloading
 - [x] Starlark coding, conditional deployments and builds
@@ -47,6 +46,19 @@ For the Tilt & Docker part I have prepared a demo with the combination of Helm &
 
 Unfortunately there's one downside of the image buildsteps for Docker, namely the lack of defining the target build stage. To achieve the same functionality, we now need to split up buildstages into different Dockerfiles. 
 
+Have a look in the `docker` directory to how this is configured.
+
+### Running the Tilt & Docker & helm demo
+```bash
+cd docker
+tilt up && tilt down
+```
 
 ## Tilt without containerized apps 
-TBD
+Tilt allows you to also run services and scripts that are not containerized. This could be done using the `local_resource` function that's built in. The local_resource function has the ability to run a script / service just once, but it's also able to serve it continuously. This functionality could help with running non-containerized services, helper scripts and a lot more. 
+
+### Running tilt with both containerized services & a local running service
+```bash
+cd apps
+tilt up && tilt down
+```
